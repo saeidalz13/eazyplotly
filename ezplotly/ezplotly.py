@@ -12,18 +12,27 @@ class EzPlotly:
     secondary: bool
 
     @abstractmethod
-    def format_x_axis(self): ...
+    def add_trace(self): ...
 
     @abstractmethod
-    def add_trace(self): ...
+    def format_x_axis(self): ...
 
     @abstractmethod
     def format_y_axis(self): ...
 
+    @abstractmethod
+    def format_layout(self): ...
+
 
 class EzScatter(EzPlotly):
-    def __init__(self, rows, cols, secondary):
+    def __init__(self, x: List, y: List, rows: int, cols: int, secondary: bool):
         super().__init__(rows, cols, secondary)
+        self.x = x
+        self.y = y
+
+    def add_trace(self):
+        pass
+
 
     def format_x_axis(self):
         pass
@@ -31,6 +40,7 @@ class EzScatter(EzPlotly):
     def format_y_axis(self):
         pass
 
-    def add_trace(self):
+    def format_layout(self):
         pass
+
 
