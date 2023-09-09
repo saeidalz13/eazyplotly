@@ -123,13 +123,13 @@ class EzScatter2D(EzPlotly):
     def _scatter_2d(self, traces):
         self.fig = go.Figure(traces)
 
-    def _format_x_axis(self, scatter_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_x_axis(self) -> None:
         super()._format_x_axis()
 
-    def _format_y_axis(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_y_axis(self) -> None:
         super()._format_y_axis()
 
-    def _format_layout(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_layout(self) -> None:
         super()._format_layout()
 
     def create_plot(self):
@@ -162,13 +162,13 @@ class EzBox(EzPlotly):
     def _create_fig(self) -> None:
         self.fig = px.box(self.data.loc[:, self.variables_to_plot])
 
-    def _format_y_axis(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_y_axis(self) -> None:
         super()._format_y_axis()
 
-    def _format_x_axis(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_x_axis(self) -> None:
         super()._format_x_axis()
 
-    def _format_layout(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def _format_layout(self) -> None:
         super()._format_layout()
 
     def create_plot(self):
