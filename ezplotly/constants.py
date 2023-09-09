@@ -1,4 +1,4 @@
-SCATTER_SETTINGS = {
+APPEARANCE_SETTINGS = {
     "mode": "markers",
     "size": 10,
     "title_font_size": 17,
