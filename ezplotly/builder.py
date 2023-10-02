@@ -18,10 +18,10 @@ class EzPlotly:
     title_text_yaxis = ""
 
     @abstractmethod
-    def _create_fig(self) -> None: ...
+    def __create_fig__(self) -> None: ...
 
     @abstractmethod
-    def _format_x_axis(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_x_axis__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
         self.fig.update_xaxes(
             title_text=self.title_text_xaxis,
             title_font_size=appearance_settings["title_font_size"],
@@ -36,7 +36,7 @@ class EzPlotly:
         )
 
     @abstractmethod
-    def _format_y_axis(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_y_axis__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
         self.fig.update_yaxes(
             title_text=self.title_text_yaxis,
             title_font_size=appearance_settings["title_font_size"],
@@ -51,7 +51,7 @@ class EzPlotly:
         )
 
     @abstractmethod
-    def _format_layout(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_layout__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
         self.fig.update_layout(
             title_text=self.title_text_plot,
             showlegend=appearance_settings["showlegend"],
@@ -90,7 +90,7 @@ class EzScatter2D(EzPlotly):
     def traces_len(self):
         return len(self.data)
 
-    def _create_fig(self) -> None:
+    def __create_fig__(self) -> None:
         specs = []
         for n, _ in enumerate(self.secondary):
             spec = [{"secondary_y": self.secondary[n]}]
@@ -102,7 +102,7 @@ class EzScatter2D(EzPlotly):
             specs=specs
         )
 
-    def _add_trace(self, scatter_settings: Dict = APPEARANCE_SETTINGS) -> List[go.Scatter]:
+    def __add_trace__(self, scatter_settings: Dict = APPEARANCE_SETTINGS) -> List[go.Scatter]:
         traces = []
         name_idx = 0
         for tn in range(0, self.traces_len, 2):
@@ -120,33 +120,43 @@ class EzScatter2D(EzPlotly):
             name_idx += 1
         return traces
 
-    def _scatter_2d(self, traces):
+    def __scatter_2d__(self, traces):
         self.fig = go.Figure(traces)
 
-    def _format_x_axis(self) -> None:
-        super()._format_x_axis()
+    def __format_x_axis__(self) -> None:
+        super().__format_x_axis__()
 
-    def _format_y_axis(self) -> None:
-        super()._format_y_axis()
+    def __format_y_axis__(self) -> None:
+        super().__format_y_axis__()
 
-    def _format_layout(self) -> None:
-        super()._format_layout()
+    def __format_layout__(self) -> None:
+        super().__format_layout__()
 
-    def create_plot(self):
-        self._create_fig()
-        traces = self._add_trace()
-        self._scatter_2d(traces)
+    def create_plot(self) -> go.Figure:
+        self.__create_fig__()
+        traces = self.__add_trace__()
+        self.__scatter_2d__(traces)
 
-        self._format_x_axis()
-        self._format_y_axis()
-        self._format_layout()
+        self.__format_x_axis__()
+        self.__format_y_axis__()
+        self.__format_layout__()
 
         return self.fig
 
 
+class EzScatter3D:
+    def __init__(
+            self,
+
+    ):
+        super().__init__()
+
+
 class EzBox(EzPlotly):
     def __init__(
-            self, data: pd.DataFrame, variables_to_plot: List[str],
+            self,
+            data: pd.DataFrame,
+            variables_to_plot: List[str],
             title_text_plot: str = "Plot",
             title_text_xaxis: str = "",
             title_text_yaxis: str = ""
@@ -159,22 +169,22 @@ class EzBox(EzPlotly):
         self.title_text_yaxis = title_text_yaxis
         self.fig = None
 
-    def _create_fig(self) -> None:
+    def __create_fig__(self) -> None:
         self.fig = px.box(self.data.loc[:, self.variables_to_plot])
 
-    def _format_y_axis(self) -> None:
-        super()._format_y_axis()
+    def __format_y_axis__(self) -> None:
+        super().__format_y_axis__()
 
-    def _format_x_axis(self) -> None:
-        super()._format_x_axis()
+    def __format_x_axis__(self) -> None:
+        super().__format_x_axis__()
 
-    def _format_layout(self) -> None:
-        super()._format_layout()
+    def __format_layout__(self) -> None:
+        super().__format_layout__()
 
-    def create_plot(self):
-        self._create_fig()
-        self._format_x_axis()
-        self._format_y_axis()
-        self._format_layout()
+    def create_plot(self) -> go.Figure:
+        self.__create_fig__()
+        self.__format_x_axis__()
+        self.__format_y_axis__()
+        self.__format_layout__()
 
         return self.fig
