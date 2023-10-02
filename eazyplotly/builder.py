@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import Dict, List
 from dataclasses import dataclass
-from ezplotly.constants import APPEARANCE_SETTINGS
+from eazyplotly.constants import APPEARANCE_SETTINGS
 from plotly.subplots import make_subplots
 
 import pandas as pd
