@@ -1,7 +1,7 @@
 from abc import abstractmethod
-from typing import Dict, List
+from typing import List
 from dataclasses import dataclass
-from eazyplotly.constants import APPEARANCE_SETTINGS
+from eazyplotly.constants import AppearanceSettings as aps
 from plotly.subplots import make_subplots
 
 import pandas as pd
@@ -21,43 +21,43 @@ class EzPlotly:
     def __create_fig__(self) -> None: ...
 
     @abstractmethod
-    def __format_x_axis__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_x_axis__(self) -> None:
         self.fig.update_xaxes(
             title_text=self.title_text_xaxis,
-            title_font_size=appearance_settings["title_font_size"],
-            title_font_family=appearance_settings["title_font_family"],
-            ticks=appearance_settings["ticks"],
-            color=appearance_settings["color"],
-            gridcolor=appearance_settings["gridcolor"],
-            griddash=appearance_settings["griddash"],
-            linecolor=appearance_settings["linecolor"],
-            linewidth=appearance_settings["linewidth"],
-            exponentformat=appearance_settings["exponentformat"]
+            title_font_size=aps.title_font_size,
+            title_font_family=aps.title_font_family,
+            ticks=aps.ticks,
+            color=aps.color,
+            gridcolor=aps.gridcolor,
+            griddash=aps.griddash,
+            linecolor=aps.linecolor,
+            linewidth=aps.linewidth,
+            exponentformat=aps.exponentformat
         )
 
     @abstractmethod
-    def __format_y_axis__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_y_axis__(self) -> None:
         self.fig.update_yaxes(
             title_text=self.title_text_yaxis,
-            title_font_size=appearance_settings["title_font_size"],
-            title_font_family=appearance_settings["title_font_family"],
-            ticks=appearance_settings["ticks"],
-            color=appearance_settings["color"],
-            gridcolor=appearance_settings["gridcolor"],
-            griddash=appearance_settings["griddash"],
-            linecolor=appearance_settings["linecolor"],
-            linewidth=appearance_settings["linewidth"],
-            exponentformat=appearance_settings["exponentformat"]
+            title_font_size=aps.title_font_size,
+            title_font_family=aps.title_font_family,
+            ticks=aps.ticks,
+            color=aps.color,
+            gridcolor=aps.gridcolor,
+            griddash=aps.griddash,
+            linecolor=aps.linecolor,
+            linewidth=aps.linewidth,
+            exponentformat=aps.exponentformat
         )
 
     @abstractmethod
-    def __format_layout__(self, appearance_settings: Dict = APPEARANCE_SETTINGS) -> None:
+    def __format_layout__(self) -> None:
         self.fig.update_layout(
             title_text=self.title_text_plot,
-            showlegend=appearance_settings["showlegend"],
-            plot_bgcolor=appearance_settings["plot_bgcolor"],
-            paper_bgcolor=appearance_settings["paper_bgcolor"],
-            legend=appearance_settings["legend"]
+            showlegend=aps.showlegend,
+            plot_bgcolor=aps.plot_bgcolor,
+            paper_bgcolor=aps.paper_bgcolor,
+            legend=aps.legend
         )
 
 
@@ -102,17 +102,17 @@ class EzScatter2D(EzPlotly):
             specs=specs
         )
 
-    def __add_trace__(self, scatter_settings: Dict = APPEARANCE_SETTINGS) -> List[go.Scatter]:
+    def __add_trace__(self) -> List[go.Scatter]:
         traces = []
         name_idx = 0
         for tn in range(0, self.traces_len, 2):
             trace = go.Scatter(
                 x=self.data[tn],
                 y=self.data[tn + 1],
-                mode=scatter_settings["mode"],
+                mode=aps.mode,
                 marker=dict(
-                    size=scatter_settings["size"],
-                    symbol=scatter_settings["symbol"]
+                    size=aps.size,
+                    symbol=aps.symbol
                 ),
                 name=self.names[name_idx]
             )
@@ -142,14 +142,6 @@ class EzScatter2D(EzPlotly):
         self.__format_layout__()
 
         return self.fig
-
-
-class EzScatter3D:
-    def __init__(
-            self,
-
-    ):
-        super().__init__()
 
 
 class EzBox(EzPlotly):
@@ -188,3 +180,11 @@ class EzBox(EzPlotly):
         self.__format_layout__()
 
         return self.fig
+
+# To be written...
+# class EzScatter3D:
+#     def __init__(
+#             self,
+#
+#     ):
+#         super().__init__()

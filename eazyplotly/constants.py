@@ -1,20 +1,20 @@
-APPEARANCE_SETTINGS = {
-    "mode": "markers",
-    "size": 10,
-    "title_font_size": 17,
-    "title_font_family": "calibri",
-    "ticks": "outside",
-    "color": "#2F4F4F",
-    "symbol": "circle",
-    "gridcolor": "lightgray",
-    "griddash": "dot",
-    "linecolor": "#2F4F4F",
-    "linewidth": 2,
-    "exponentformat": "none",
-    "showlegend": True,
-    "plot_bgcolor": "Whitesmoke",
-    "paper_bgcolor": "#FFF5EE",
-    "legend": {
+class AppearanceSettings:
+    mode = "markers"
+    size = 10
+    title_font_size = 17
+    title_font_family = "calibri"
+    ticks = "outside"
+    color = "#2F4F4F"
+    symbol = "circle"
+    gridcolor = "lightgray"
+    griddash = "dot"
+    linecolor = "#2F4F4F"
+    linewidth = 2
+    exponentformat = "none"
+    showlegend = True
+    plot_bgcolor = "Whitesmoke"
+    paper_bgcolor = "#FFF5EE"
+    legend = {
         "title": "Legends",
         "bordercolor": "black",
         "bgcolor": "#E6E6FA",
@@ -23,4 +23,3 @@ APPEARANCE_SETTINGS = {
         "font_size": 12,
         "itemclick": "toggle"
     }
-}
