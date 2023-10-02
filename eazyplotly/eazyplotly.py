@@ -1,6 +1,5 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from typing import List
-from dataclasses import dataclass
 from eazyplotly.constants import AppearanceSettings as aps
 from plotly.subplots import make_subplots
 
@@ -9,8 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-@dataclass
-class EzPlotly:
+class EzPlotly(ABC):
     data: List[List[float | int]] | pd.DataFrame
     fig = None
     title_text_plot = ""
@@ -18,10 +16,9 @@ class EzPlotly:
     title_text_yaxis = ""
 
     @abstractmethod
-    def __create_fig__(self) -> None: ...
+    def _create_fig_(self) -> None: ...
 
-    @abstractmethod
-    def __format_x_axis__(self) -> None:
+    def _format_x_axis_(self) -> None:
         self.fig.update_xaxes(
             title_text=self.title_text_xaxis,
             title_font_size=aps.title_font_size,
@@ -35,8 +32,7 @@ class EzPlotly:
             exponentformat=aps.exponentformat
         )
 
-    @abstractmethod
-    def __format_y_axis__(self) -> None:
+    def _format_y_axis_(self) -> None:
         self.fig.update_yaxes(
             title_text=self.title_text_yaxis,
             title_font_size=aps.title_font_size,
@@ -50,8 +46,7 @@ class EzPlotly:
             exponentformat=aps.exponentformat
         )
 
-    @abstractmethod
-    def __format_layout__(self) -> None:
+    def _format_layout_(self) -> None:
         self.fig.update_layout(
             title_text=self.title_text_plot,
             showlegend=aps.showlegend,
@@ -90,7 +85,7 @@ class EzScatter2D(EzPlotly):
     def traces_len(self):
         return len(self.data)
 
-    def __create_fig__(self) -> None:
+    def _create_fig_(self) -> None:
         specs = []
         for n, _ in enumerate(self.secondary):
             spec = [{"secondary_y": self.secondary[n]}]
@@ -123,23 +118,14 @@ class EzScatter2D(EzPlotly):
     def __scatter_2d__(self, traces):
         self.fig = go.Figure(traces)
 
-    def __format_x_axis__(self) -> None:
-        super().__format_x_axis__()
-
-    def __format_y_axis__(self) -> None:
-        super().__format_y_axis__()
-
-    def __format_layout__(self) -> None:
-        super().__format_layout__()
-
     def create_plot(self) -> go.Figure:
-        self.__create_fig__()
+        self._create_fig_()
         traces = self.__add_trace__()
         self.__scatter_2d__(traces)
 
-        self.__format_x_axis__()
-        self.__format_y_axis__()
-        self.__format_layout__()
+        self._format_x_axis_()
+        self._format_y_axis_()
+        self._format_layout_()
 
         return self.fig
 
@@ -161,25 +147,17 @@ class EzBox(EzPlotly):
         self.title_text_yaxis = title_text_yaxis
         self.fig = None
 
-    def __create_fig__(self) -> None:
+    def _create_fig_(self) -> None:
         self.fig = px.box(self.data.loc[:, self.variables_to_plot])
 
-    def __format_y_axis__(self) -> None:
-        super().__format_y_axis__()
-
-    def __format_x_axis__(self) -> None:
-        super().__format_x_axis__()
-
-    def __format_layout__(self) -> None:
-        super().__format_layout__()
-
     def create_plot(self) -> go.Figure:
-        self.__create_fig__()
-        self.__format_x_axis__()
-        self.__format_y_axis__()
-        self.__format_layout__()
+        self._create_fig_()
+        self._format_x_axis_()
+        self._format_y_axis_()
+        self._format_layout_()
 
         return self.fig
+
 
 # To be written...
 # class EzScatter3D:
