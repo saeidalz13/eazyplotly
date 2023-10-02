@@ -6,7 +6,7 @@ setup(
     description="Package to make the use of Plotly library easier",
     author="Saeid Alizadeh",
     author_email="saeidalz96@gmail.com",
-    url="https://github.com/saeidalz13/ezplotly",
+    url="https://github.com/saeidalz13/eazyplotly",
     packages=find_packages(),
     install_requires=[
         "plotly",
