@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="eazyplotly",
-    version="1.0.0",
+    version="0.1.0",
     description="Package to make the use of Plotly library easier",
     author="Saeid Alizadeh",
     author_email="saeidalz96@gmail.com",
