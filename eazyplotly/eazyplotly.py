@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 from typing import List
-from eazyplotly.constants import AppearanceSettings as aps
+from constants import AppearanceSettings as aps
 from plotly.subplots import make_subplots
 
 import pandas as pd
@@ -9,11 +9,19 @@ import plotly.graph_objects as go
 
 
 class EzPlotly(ABC):
-    data: List[List[float | int]] | pd.DataFrame
-    fig = None
-    title_text_plot = ""
-    title_text_xaxis = ""
-    title_text_yaxis = ""
+    def __init__(
+            self,
+            data: List[List[float | int]] | pd.DataFrame,
+            fig=None,
+            title_text_plot="",
+            title_text_xaxis="",
+            title_text_yaxis=""
+    ):
+        self.data = data
+        self.fig = fig
+        self.title_text_plot = title_text_plot
+        self.title_text_xaxis = title_text_xaxis
+        self.title_text_yaxis = title_text_yaxis
 
     @abstractmethod
     def _create_fig_(self) -> None: ...
@@ -159,7 +167,7 @@ class EzBox(EzPlotly):
         return self.fig
 
 
-# To be written...
+# To be continued...
 # class EzScatter3D:
 #     def __init__(
 #             self,
