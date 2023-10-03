@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 from typing import List
-from constants import AppearanceSettings as aps
+from eazyplotly.constants import AppearanceSettings as aps
 from plotly.subplots import make_subplots
 
 import pandas as pd
